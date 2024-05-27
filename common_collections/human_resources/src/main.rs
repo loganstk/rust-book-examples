@@ -15,12 +15,12 @@ enum Department {
 impl FromStr for Department {
     type Err = ();
 
-    fn from_str(input: &str) -> Result<Department, Self::Err> {
+    fn from_str(input: &str) -> Result<Self, Self::Err> {
         match input {
-            "Sales" => Ok(Department::Sales),
-            "Engineering" => Ok(Department::Engineering),
-            "HumanResources" => Ok(Department::HumanResources),
-            "Finance" => Ok(Department::Finance),
+            "Sales" => Ok(Self::Sales),
+            "Engineering" => Ok(Self::Engineering),
+            "HumanResources" => Ok(Self::HumanResources),
+            "Finance" => Ok(Self::Finance),
             _ => Err(()),
         }
     }
@@ -48,6 +48,7 @@ fn main() {
         let user_input = String::from(user_input.trim());
         let command = parse_command(user_input);
 
+        // TODO: Recover from errors
         match command.expect("Unknown command") {
             Command::Add { employee, department } => add_employee(&mut organization, department, employee),
             Command::Remove { employee, department } => remove_employee(&mut organization, department, employee),
